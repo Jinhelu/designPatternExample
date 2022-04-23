@@ -195,12 +195,34 @@ SingletonLazy_ThreadSafe *SingletonLazy_ThreadSafe::instance = NULL;
 mutex SingletonLazy_ThreadSafe::m;
 ```
 #### 2. 局部静态变量实现的线程安全懒汉模式
+<font color=red>利用局部静态变量特性： </font>
+1. 局部静态变量在程序执行到对象声明处时被首次初始化，以后的函数调用不再进行初始化
+2. 局部静态变量始终保存在全局数据区，直到程序运行结束，但是其作用域为局部作用域。
 ```C++
+// 局部静态变量实现的线程安全的懒汉模式
+class SingletonLazy_ThreadSafe_LocalStatic{
+    private:
+        SingletonLazy_ThreadSafe_LocalStatic(){
+            cout << "SingletonLazy_ThreadSafe_LocalStatic constructor run" << endl;
+        }
+    public:
+        static SingletonLazy_ThreadSafe_LocalStatic *getInstance(){
+            static SingletonLazy_ThreadSafe_LocalStatic *instance;
+            return instance;
+        }
+        static void freeInstance(){
+            if (instance != NULL){
+                delete instance;
+                instance = NULL; 
+            }
+        }
+        void tell(){
+            cout << "This is a local-static Thread-Safe Lazy Singleton Pattern" << endl;
+        }
+
+    private:
+        static SingletonLazy_ThreadSafe_LocalStatic *instance;
+};
 ```
 
-### 六、案例扩展 ###
-
-创建一个 SingleObject 类。SingleObject 类有它的私有构造函数和本身的一个静态实例。
-
-SingleObject 类提供了一个静态方法，供外界获取它的静态实例。SingletonPatternDemo，我们的演示类使用 SingleObject 类来获取 SingleObject 对象。
-运行结果如下：
+### 六、案例扩展
