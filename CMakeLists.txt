@@ -12,7 +12,7 @@ set(PATTERNS
     composite
     decorator
     facade
-    factory-method
+    factory_method
     flyweight
     interpreter
     iterator
