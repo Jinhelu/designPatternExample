@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.5)
 project(CppDesignPatterns)
 
 set(PATTERNS
-    abstract-factory
+    abstract_factory
     adapter
     bridge
     builder
@@ -24,7 +24,7 @@ set(PATTERNS
     singleton
     state
     strategy
-    template-method
+    template_method
     visitor
 )
 
