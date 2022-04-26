@@ -22,4 +22,6 @@ ConcreteBuilderX、ConcreteBuilderY作为具体的建筑者，建筑不同的产
 2. 对象的表示
 对应代码中的Product类，实现产品的属性描述以及操作（单独产品层面）
 
+### 二、优缺点
+
 
