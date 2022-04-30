@@ -4,92 +4,84 @@
 
 装饰模式就是把要添加的附加功能分别放在单独的类中，并让这个类包含它要装饰的对象，当需要执行时，客户端就可以有选择地、按顺序地使用装饰功能包装对象。
 
+动态地将附加职责附加到对象。 装饰器为扩展功能提供子类化的灵活替代方案。该模式具有结构目的并适用于对象。
 ### 一、类图角色和职责
 
 装饰者模式（Decorator Pattern）动态的给一个对象添加一些额外的职责。就增加功能来说，此模式比生成子类更为灵活。
+1. 什么时候使用
+   * 动态透明的为单个对象添加职责，不影响其他对象
+   * 可撤销的职责
+   * 当无法通过子类化拓展实现对象职责增加时
 
 ### 二、案例
 <font color=red>此处案例比实例代码简单，实例代码增加了装饰类的接口，采用多重继承方式实现</font>
 
 ```C++
-	#include <iostream>
-	using namespace std;
-	
-	class Car
-	{
-	public:
-		virtual void show() = 0;
-	};
-	
-	class RunCar : public Car 
-	{
-	public:
-		virtual void show()
-		{
-			cout << "可以跑" << endl;
-		}
-	};
-	
-	class SwimCarDecorator : public Car
-	{
-	public:
-		SwimCarDecorator(Car *car)
-		{
-			m_car = car;
-		}
-		void swim()
-		{
-			cout << "可以游" << endl;
-		}
-		virtual void show()
-		{
-			m_car->show();
-			swim();
-		}
-	private:
-		Car *m_car;
-	};
-	
-	class  FlyCarDecorator : public Car
-	{
-	public:
-		FlyCarDecorator(Car *car)
-		{
-			m_car = car;
-		}
-		void fly()
-		{
-			cout << "可以飞" << endl;
-		}
-		virtual void show()
-		{
-			m_car->show();
-			fly();
-		}
-	
-	private:
-		Car *m_car;
-	};
-	
-	int main(void)
-	{
-		Car * mycar = new RunCar();
-		mycar->show();
-		cout << "-----------" << endl;
+#include <iostream>
+using namespace std;
 
-		FlyCarDecorator *flycar = new FlyCarDecorator(mycar);
-		flycar->show();
-		cout << "-----------" << endl;
-	
-		SwimCarDecorator *swimcar = new SwimCarDecorator(flycar);
-		swimcar->show();
-		cout << "-----------" << endl;
-	
-		delete swimcar;
-		delete flycar;
-		delete mycar;
-		return 0;
+class Car {
+public:
+	virtual void show() = 0;
+};
+
+class RunCar : public Car {
+public:
+	virtual void show() {
+		cout << "可以跑" << endl;
 	}
+};
+
+class SwimCarDecorator : public Car {
+public:
+	SwimCarDecorator(Car *car) {
+		m_car = car;
+	}
+	void swim() {
+		cout << "可以游" << endl;
+	}
+	virtual void show() {
+		m_car->show();
+		swim();
+	}
+private:
+	Car *m_car;
+};
+
+class  FlyCarDecorator : public Car {
+public:
+	FlyCarDecorator(Car *car) {
+		m_car = car;
+	}
+	void fly() {
+		cout << "可以飞" << endl;
+	}
+	virtual void show() {
+		m_car->show();
+		fly();
+	}
+private:
+	Car *m_car;
+};
+
+int main(void) {
+	Car * mycar = new RunCar();
+	mycar->show();
+	cout << "-----------" << endl;
+
+	FlyCarDecorator *flycar = new FlyCarDecorator(mycar);
+	flycar->show();
+	cout << "-----------" << endl;
+
+	SwimCarDecorator *swimcar = new SwimCarDecorator(flycar);
+	swimcar->show();
+	cout << "-----------" << endl;
+
+	delete swimcar;
+	delete flycar;
+	delete mycar;
+	return 0;
+}
 ```
 
 ### 三、扩展案例
