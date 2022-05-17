@@ -7,7 +7,7 @@ set(PATTERNS
     adapter
     bridge
     builder
-    chain-of-responsibility
+    chain_of_responsibility
     command
     composite
     decorator
