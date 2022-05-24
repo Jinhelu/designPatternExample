@@ -141,7 +141,6 @@ public:
 public:
     virtual void getParterner()
     {
-
         if (pWoman->getSex() == pMan->getSex())
         {
             cout << "同性恋 之间 不能找对象 " << endl;
